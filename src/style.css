@@ -1,6 +1,6 @@
-#canvas {
-  border: 3px solit black;
-  position: absolutel;
+#canvas1 {
+  border: 3px solid black;
+  position: absolute;
   top: 50%;
   left: 50%;
   translate: -50% -50%;

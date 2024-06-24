@@ -7,4 +7,5 @@ canvas.width = 500;
 canvas.height = 700;
 
 const effect = new Effect(canvas);
-console.log(effect);
+
+effect.render(ctx);
