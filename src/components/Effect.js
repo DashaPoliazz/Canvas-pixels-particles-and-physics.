@@ -18,8 +18,6 @@ class Effect {
 
     this.imageGrid = [];
     this.#initGrid();
-
-    this.image = document.getElementById("mock-image");
   }
 
   #initGrid() {
@@ -31,8 +29,10 @@ class Effect {
   }
 
   render(context) {
-    context.drawImage(this.image, 0, 0);
-    this.imageGrid.forEach((cell) => cell.draw(context));
+    this.imageGrid.forEach((cell) => {
+      cell.update();
+      cell.draw(context);
+    });
   }
 }
 
