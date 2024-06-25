@@ -5,6 +5,8 @@ import Cell from "./Cell.js";
  */
 const CELL_WIDTH = 35;
 const CELL_HEIGHT = 55;
+const MOUSE_RADIUS = 100;
+const CANVAS_ID = "canvas1";
 
 class Effect {
   constructor(canvas) {
@@ -18,6 +20,24 @@ class Effect {
 
     this.imageGrid = [];
     this.#initGrid();
+
+    this.mouse = {
+      x: undefined,
+      y: undefined,
+      radius: MOUSE_RADIUS,
+    };
+    document.addEventListener("mousemove", (e) => {
+      if (e.target.id !== CANVAS_ID) return;
+
+      this.mouse.x = e.offsetX;
+      this.mouse.y = e.offsetY;
+
+      console.log(this.mouse);
+    });
+    document.addEventListener("mouseleave", (e) => {
+      this.mouse.x = undefined;
+      this.mouse.y = undefined;
+    });
   }
 
   #initGrid() {

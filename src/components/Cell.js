@@ -1,7 +1,7 @@
 const IMAGE_ID = "mock-image";
 
-const RIPPLE_EFFECT_X = 5;
-const RIPPLE_EFFECT_Y = 5;
+const RIPPLE_EFFECT_X = 0;
+const RIPPLE_EFFECT_Y = 0;
 
 class Cell {
   constructor(effectInstance, x, y) {
@@ -9,11 +9,13 @@ class Cell {
     this.x = x;
     this.y = y;
 
-    this.slideX = Math.random() * RIPPLE_EFFECT_X;
-    this.slideY = Math.random() * RIPPLE_EFFECT_Y;
+    this.slideX = RIPPLE_EFFECT_X;
+    this.slideY = RIPPLE_EFFECT_Y;
 
     this.width = effectInstance.cellWidth;
     this.height = effectInstance.cellHeight;
+    this.vx = 0; // velocity
+    this.vy = 0;
 
     this.image = document.getElementById(IMAGE_ID);
   }
@@ -39,8 +41,19 @@ class Cell {
   }
 
   update() {
-    this.slideX = Math.random() * RIPPLE_EFFECT_X;
-    this.slideY = Math.random() * RIPPLE_EFFECT_Y;
+    const dx = this.effect.mouse.x - this.x;
+    const dy = this.effect.mouse.y - this.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance < this.effect.mouse.radius) {
+      const force = distance / this.effect.mouse.radius;
+      this.vx = force;
+      this.vy = force;
+    } else {
+      this.vx = 0;
+      this.vy = 0;
+    }
+    this.slideX += this.vx;
+    this.slideY += this.vy;
   }
 }
 
